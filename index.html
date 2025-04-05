@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
+    <title>Sign Up for Updates</title>
     <style>
         body {
             background-color: black;
@@ -46,18 +46,28 @@
     <div class="container">
         <h1>COMING SOON</h1>
         <p>Sign up to get notified when we launch!</p>
-        <input type="email" id="email" placeholder="Enter your email" required>
+        <input type="text" id="phone" placeholder="Enter your phone number" required>
         <button onclick="notifyMe()">Notify Me</button>
         <p id="message"></p>
     </div>
+
     <script>
         function notifyMe() {
-            let email = document.getElementById("email").value;
-            if (email) {
-                document.getElementById("message").innerText = "Thank you! You'll be notified.";
-                document.getElementById("email").value = "";
+            let phone = document.getElementById("phone").value;
+            if (phone) {
+                fetch("https://script.google.com/macros/s/AKfycbwDCTkauvrBaN6LBNybpbsHvBi2wEGlg8Sc9ZRWursoTRHr6YCD7LCluLKOi5iBSF3PQg/exec", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ phone: phone })
+                })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("message").innerText = "Thank you! You'll be notified.";
+                    document.getElementById("phone").value = "";
+                })
+                .catch(error => console.error("Error:", error));
             } else {
-                document.getElementById("message").innerText = "Please enter a valid email.";
+                document.getElementById("message").innerText = "Please enter a valid phone number.";
             }
         }
     </script>
