@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        body {
+            background-color: black;
+            color: red;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        h1 {
+            font-size: 50px;
+            text-shadow: 0 0 20px red;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>COMING SOON</h1>
+        <p>Sign up to get notified when we launch!</p>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <button onclick="notifyMe()">Notify Me</button>
+        <p id="message"></p>
+    </div>
+    <script>
+        function notifyMe() {
+            let email = document.getElementById("email").value;
+            if (email) {
+                document.getElementById("message").innerText = "Thank you! You'll be notified.";
+                document.getElementById("email").value = "";
+            } else {
+                document.getElementById("message").innerText = "Please enter a valid email.";
+            }
+        }
+    </script>
+</body>
+</html>
