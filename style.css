@@ -1,95 +1,50 @@
-/* Basic reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #f4f4f4;
-  color: #333;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
 }
 
-header {
-  background-color: #333;
-  color: white;
-  padding: 10px 0;
-  text-align: center;
+#banner {
+    background-color: #2d98da;
+    color: white;
+    text-align: center;
+    padding: 50px 0;
 }
 
-nav ul {
-  list-style: none;
+#stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #fff;
 }
 
-nav ul li {
-  display: inline;
-  margin: 0 15px;
+#stats div {
+    text-align: center;
 }
 
-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
+#services {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: #f0f0f0;
 }
 
-.hero {
-  background-color: #4caf50;
-  color: white;
-  text-align: center;
-  padding: 50px 0;
+.service-box {
+    width: 30%;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s;
 }
 
-.cta-button {
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
+.service-box:hover {
+    transform: scale(1.05);
 }
 
-section {
-  padding: 40px;
-}
-
-h2 {
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.service-card {
-  background-color: #fff;
-  padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#contact-form label {
-  display: block;
-  margin-top: 10px;
-}
-
-#contact-form input, #contact-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-button {
-  background-color: #333;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-footer {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 20px 0;
+#about {
+    padding: 20px;
+    text-align: center;
 }
