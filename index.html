@@ -1,73 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cerevex - Web and App Development</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerevex Development</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+    <!-- Company Banner -->
+    <section id="banner">
+        <h1>Cerevex Development</h1>
+        <p>Your trusted partner for web & app development</p>
+    </section>
 
-  <!-- Hero Section -->
-  <section id="home">
-    <div class="hero">
-      <h1>Welcome to Cerevex</h1>
-      <p>Your trusted partner for web and app development</p>
-      <a href="#contact" class="cta-button">Get Started</a>
-    </div>
-  </section>
+    <!-- Completed Projects and Customers -->
+    <section id="stats">
+        <div id="projects">
+            <h2>Projects Completed</h2>
+            <p>150+</p>
+        </div>
+        <div id="customers">
+            <h2>Customers Served</h2>
+            <p>100+</p>
+        </div>
+    </section>
 
-  <!-- About Us Section -->
-  <section id="about">
-    <h2>About Us</h2>
-    <p>Cerevex is a cutting-edge tech company specializing in web and app development. We provide custom solutions to help businesses grow online.</p>
-  </section>
+    <!-- Services Section -->
+    <section id="services">
+        <div class="service-box" onclick="window.location.href='web-development.html'">
+            <h3>Web Development</h3>
+        </div>
+        <div class="service-box" onclick="window.location.href='app-development.html'">
+            <h3>App Development</h3>
+        </div>
+        <div class="service-box" onclick="window.location.href='courses.html'">
+            <h3>Programming Courses</h3>
+        </div>
+    </section>
 
-  <!-- Services Section -->
-  <section id="services">
-    <h2>Our Services</h2>
-    <div class="service-card">
-      <h3>Web Development</h3>
-      <p>Custom websites built to suit your needs, with robust features and user-friendly designs.</p>
-    </div>
-    <div class="service-card">
-      <h3>App Development</h3>
-      <p>Mobile apps designed for Android and iOS to enhance your business reach and customer experience.</p>
-    </div>
-  </section>
+    <!-- Company Information -->
+    <section id="about">
+        <p>At Cerevex Development, we offer top-notch web & app development services, with a focus on customer satisfaction and quality. We also provide programming courses to help you enhance your skills.</p>
+    </section>
 
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <form id="contact-form">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" required>
-      
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-      
-      <label for="message">Message</label>
-      <textarea id="message" name="message" required></textarea>
-      
-      <button type="submit">Submit</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Cerevex. All rights reserved.</p>
-  </footer>
-
-  <script src="scripts.js"></script>
 </body>
 </html>
