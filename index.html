@@ -1,68 +1,661 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cerevex Development</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerevex Development - Web & App Development Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --accent: #f59e0b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .foundation {
+            margin-top: 30px;
+            font-style: italic;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .stat-description {
+            font-size: 18px;
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .service-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .coming-soon {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: var(--light);
+        }
+        
+        .features-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        
+        .feature-icon {
+            font-size: 24px;
+            color: var(--primary);
+            margin-right: 20px;
+            margin-top: 5px;
+        }
+        
+        .feature-text h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Team Section */
+        .team {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .team-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        
+        .team-member {
+            text-align: center;
+            max-width: 300px;
+        }
+        
+        .member-name {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .member-position {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            display: inline-block;
+            color: white;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 24px;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-text, .about-image {
+                flex: none;
+                width: 100%;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero {
+                padding: 120px 0 80px;
+            }
+            
+            .section-title {
+                font-size: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+            }
+            
+            .footer-links li {
+                margin: 10px 0;
+            }
+        }
+    </style>
 </head>
-<body class="bg-[#fdf6e3] text-gray-800">
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">CEREVEX<span>.</span></a>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#contact" class="cta-button">Reach out</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-  <!-- Header -->
-  <header class="bg-[#e0f2ff] p-6 text-center shadow-md">
-    <h1 class="text-3xl font-bold">Cerevex Development</h1>
-    <p class="text-sm mt-2">Building the Future: Websites | Apps | Programming Courses</p>
-  </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Empowering Businesses Through Digital Innovation</h1>
+            <p>We specialize in web development, app development, and programming courses, offering tailored services that turn ideas into scalable, high-performing realities.</p>
+            <a href="#contact" class="cta-button">Get Started</a>
+        </div>
+    </section>
 
-  <!-- Stats -->
-  <section class="flex justify-around mt-8 text-center">
-    <div>
-      <h2 class="text-4xl font-bold text-blue-600">24+</h2>
-      <p class="text-lg">Projects Completed</p>
-    </div>
-    <div>
-      <h2 class="text-4xl font-bold text-blue-600">18+</h2>
-      <p class="text-lg">Happy Clients</p>
-    </div>
-  </section>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Cerevex Development is a next-generation tech company</h2>
+                    <p>We're on a mission to empower businesses and individuals through powerful digital solutions. We specialize in web development, app development, and programming courses, offering tailored services that turn ideas into scalable, high-performing realities.</p>
+                    <p>At Cerevex, we believe that technology is the backbone of modern innovation. Whether you're a startup looking to launch your first website, a business aiming to streamline operations with a custom app, or a learner ready to dive into the world of coding — we've got you covered.</p>
+                    <p class="foundation">Cerevex development since 2025</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Team working on digital project">
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Services -->
-  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 mt-10">
-    <!-- Web Development -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold mb-2 text-blue-500">Web Development</h3>
-      <p>Business, E-Commerce & Portfolio Websites.</p>
-      <button onclick="navigateTo('web')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-xl">Explore</button>
-    </div>
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">5000+</div>
+                    <div class="stat-description">PROJECTS DELIVERED</div>
+                    <p>From sleek business websites to smart mobile apps, our work speaks for itself.</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6500+</div>
+                    <div class="stat-description">CONNECTED CLIENTS</div>
+                    <p>Each client we serve becomes a part of the Cerevex family. Their success is our biggest reward.</p>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">WORLDWIDE</div>
+                    <div class="stat-description">GLOBAL REACH</div>
+                    <p>We proudly serve startups, creators, and businesses across the world—delivering top-tier tech with a personal touch.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- App Development -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold mb-2 text-green-500">App Development</h3>
-      <p>Custom Android & iOS apps using React Native.</p>
-      <button onclick="navigateTo('app')" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-xl">Explore</button>
-    </div>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-container">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>We craft stunning, responsive, and high-performance websites tailored to your brand. Whether it's a business site, e-commerce store, or portfolio – our team at Cerevex Development brings your digital vision to life with clean code and creative design.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>App Development</h3>
+                    <p>From idea to launch, we build smooth, scalable, and user-friendly mobile apps for Android and iOS. Our goal? To help businesses grow and connect with users through powerful app experiences that make a difference.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Programming Courses <span class="coming-soon">Coming Soon</span></h3>
+                    <p>We're preparing to launch practical, beginner-friendly programming courses designed to turn learners into developers. Learn web development, Python, and more – guided by real-world projects and step-by-step support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Programming Courses -->
-    <div class="bg-white rounded-2xl shadow-md p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold mb-2 text-purple-500">Programming Courses</h3>
-      <p>Learn Python, Web Dev & More (Coming Soon).</p>
-      <button onclick="navigateTo('courses')" class="mt-4 bg-purple-500 text-white px-4 py-2 rounded-xl">Explore</button>
-    </div>
-  </section>
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">What Sets Us Apart?</h2>
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Timely Delivery</h3>
+                        <p>We respect your time and deliver projects within agreed timelines without compromising quality.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Transparent Communication</h3>
+                        <p>Clear, honest communication throughout the project lifecycle ensures we're always on the same page.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>High-Quality Custom Work</h3>
+                        <p>Every project receives our full attention to detail and commitment to excellence.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Real-Time Support</h3>
+                        <p>Our team is always available to address your concerns and provide immediate assistance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- Footer -->
-  <footer class="bg-[#e0f2ff] text-center py-4 mt-10">
-    <p class="text-sm">© 2025 Cerevex Development. All rights reserved.</p>
-  </footer>
+    <!-- Team Section -->
+    <section id="team" class="team">
+        <div class="container">
+            <h2 class="section-title">Our Leadership</h2>
+            <div class="team-container">
+                <div class="team-member">
+                    <h3 class="member-name">Lakshya Khare</h3>
+                    <p class="member-position">FOUNDER</p>
+                    <p>The founder of Cerevex, a software company specializing in web and app development. With a passion for innovation, he leads the company to provide cutting-edge digital solutions for businesses and individuals.</p>
+                </div>
+                <div class="team-member">
+                    <h3 class="member-name">Vaibhanu Dev Shrivastava</h3>
+                    <p class="member-position">CEO</p>
+                    <p>The CEO of Cerevex, leading the company in delivering innovative web and app development solutions. With a focus on excellence, he drives Cerevex to empower businesses through cutting-edge digital services.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <!-- JS Navigation -->
-  <script>
-    function navigateTo(service) {
-      alert("Navigating to " + service + " section (under development)");
-      // In future, redirect to actual service pages
-      // window.location.href = service + ".html";
-    }
-  </script>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Reach Out</h2>
+            <!-- Contact form would go here -->
+        </div>
+    </section>
 
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="#" class="footer-logo">CEREVEX</a>
+            <ul class="footer-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">© 2025 Cerevex Development. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.nav-links').style.display = 'none';
+                    }
+                }
+            });
+        });
+        
+        // Change header style on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
 </body>
 </html>
