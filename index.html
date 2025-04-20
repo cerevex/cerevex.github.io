@@ -1,49 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cerevex Development</title>
-  <link rel="stylesheet" href="styles/main.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <!-- Banner -->
-  <header class="banner">
-    <h1>CEREVEX DEVELOPMENT</h1>
-    <p>Web Development | App Development | Programming Courses</p>
+<body class="bg-[#fdf6e3] text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-[#e0f2ff] p-6 text-center shadow-md">
+    <h1 class="text-3xl font-bold">Cerevex Development</h1>
+    <p class="text-sm mt-2">Building the Future: Websites | Apps | Programming Courses</p>
   </header>
 
   <!-- Stats -->
-  <section class="stats">
-    <div class="stat-box">
-      <h2>50+</h2>
-      <p>Projects Completed</p>
+  <section class="flex justify-around mt-8 text-center">
+    <div>
+      <h2 class="text-4xl font-bold text-blue-600">24+</h2>
+      <p class="text-lg">Projects Completed</p>
     </div>
-    <div class="stat-box">
-      <h2>100+</h2>
-      <p>Happy Customers</p>
+    <div>
+      <h2 class="text-4xl font-bold text-blue-600">18+</h2>
+      <p class="text-lg">Happy Clients</p>
     </div>
   </section>
 
   <!-- Services -->
-  <section class="services">
-    <div class="service-box" onclick="location.href='web-development.html'">
-      <h3>Web Development</h3>
-      <p>Business, E-commerce, Portfolio Websites</p>
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 mt-10">
+    <!-- Web Development -->
+    <div class="bg-white rounded-2xl shadow-md p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold mb-2 text-blue-500">Web Development</h3>
+      <p>Business, E-Commerce & Portfolio Websites.</p>
+      <button onclick="navigateTo('web')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-xl">Explore</button>
     </div>
-    <div class="service-box" onclick="location.href='app-development.html'">
-      <h3>App Development</h3>
-      <p>Android/iOS Apps</p>
+
+    <!-- App Development -->
+    <div class="bg-white rounded-2xl shadow-md p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold mb-2 text-green-500">App Development</h3>
+      <p>Custom Android & iOS apps using React Native.</p>
+      <button onclick="navigateTo('app')" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-xl">Explore</button>
     </div>
-    <div class="service-box" onclick="location.href='courses.html'">
-      <h3>Courses</h3>
-      <p>Learn Programming</p>
+
+    <!-- Programming Courses -->
+    <div class="bg-white rounded-2xl shadow-md p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold mb-2 text-purple-500">Programming Courses</h3>
+      <p>Learn Python, Web Dev & More (Coming Soon).</p>
+      <button onclick="navigateTo('courses')" class="mt-4 bg-purple-500 text-white px-4 py-2 rounded-xl">Explore</button>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
-    <p>Contact: info@cerevex.com | Phone: +91 XXXXX XXXXX</p>
+  <footer class="bg-[#e0f2ff] text-center py-4 mt-10">
+    <p class="text-sm">© 2025 Cerevex Development. All rights reserved.</p>
   </footer>
+
+  <!-- JS Navigation -->
+  <script>
+    function navigateTo(service) {
+      alert("Navigating to " + service + " section (under development)");
+      // In future, redirect to actual service pages
+      // window.location.href = service + ".html";
+    }
+  </script>
+
 </body>
 </html>
