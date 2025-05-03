@@ -1,494 +1,842 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cerevex Development - Digital Innovation Solutions</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cerevex - Web & App Development Services</title>
+  <meta name="description" content="Professional web and mobile app development with instant quoting and payment system">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #3b82f6;
+      --secondary: #10b981;
+      --dark: #1f2937;
+      --dark-gray: #4b5563;
+      --light-gray: #e5e7eb;
+      --light: #f9fafb;
+      --white: #ffffff;
+      
+      --font-primary: 'Poppins', sans-serif;
+      --font-secondary: 'Montserrat', sans-serif;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      
+      --transition: all 0.3s ease;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--white);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-secondary);
+      font-weight: 700;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    header {
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      padding: 1rem 0;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logo-text h1 {
+      font-size: 1.75rem;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav ul li a {
+      font-weight: 500;
+      color: var(--dark);
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      bottom: -5px;
+      left: 0;
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 10rem 0 5rem;
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1469&q=80') no-repeat center/cover;
+      color: var(--white);
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: var(--radius);
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Services */
+    .services {
+      padding: 6rem 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 4px;
+      background: var(--primary);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    /* Order Form */
+    .order-form {
+      background: var(--light);
+      padding: 6rem 0;
+    }
+
+    .form-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--white);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--light-gray);
+      border-radius: var(--radius);
+      font-family: var(--font-primary);
+      transition: var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    /* Plans */
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .plan {
+      border: 1px solid var(--light-gray);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .plan:hover {
+      border-color: var(--primary);
+    }
+
+    .plan.selected {
+      border-color: var(--primary);
+      background: rgba(37, 99, 235, 0.05);
+    }
+
+    .plan h3 {
+      margin-bottom: 1rem;
+    }
+
+    .plan .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* Order Summary */
+    #order-summary {
+      background: var(--light);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    /* Confirmation */
+    .confirmation {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .confirmation i {
+      font-size: 4rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    /* Contact */
+    .contact {
+      padding: 6rem 0;
+    }
+
+    .contact-info {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .contact-info p {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: var(--light-gray);
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--light-gray);
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+      
+      nav ul {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - 80px);
+        background: var(--white);
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        transition: var(--transition);
+      }
+
+      nav ul.active {
+        left: 0;
+      }
+
+      .plans {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Particle Background -->
-    <div id="particles-js"></div>
-
-    <!-- Header -->
-    <header class="tech-header">
-        <div class="container">
-            <nav class="tech-nav">
-                <a href="#home" class="tech-logo">
-                    <img src="images/logo.svg" alt="Cerevex Logo">
-                    <span>CEREVEX</span>
-                </a>
-                
-                <div class="tech-nav-links" id="navLinks">
-                    <ul>
-                        <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
-                        <li class="dropdown">
-                            <a href="#services"><i class="fas fa-cogs"></i> Services <i class="fas fa-chevron-down"></i></a>
-                            <div class="tech-dropdown-menu">
-                                <a href="#web-development"><i class="fas fa-laptop-code"></i> Web Development</a>
-                                <a href="#app-development"><i class="fas fa-mobile-screen"></i> App Development</a>
-                                <a href="#ecommerce"><i class="fas fa-cart-shopping"></i> E-Commerce</a>
-                                <a href="#digital-marketing"><i class="fas fa-bullhorn"></i> Digital Marketing</a>
-                                <a href="#cloud-solutions"><i class="fas fa-cloud"></i> Cloud Solutions</a>
-                                <a href="#it-consulting"><i class="fas fa-headset"></i> IT Consulting</a>
-                            </div>
-                        </li>
-                        <li><a href="#courses"><i class="fas fa-graduation-cap"></i> Courses</a></li>
-                        <li><a href="#team"><i class="fas fa-users"></i> Team</a></li>
-                        <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="tech-nav-actions">
-                    <div class="user-icon" id="userIcon">
-                        <i class="fas fa-user-circle"></i>
-                        <div class="user-panel" id="userPanel">
-                            <a href="#profile" id="loginLink"><i class="fas fa-sign-in-alt"></i> Login</a>
-                            <a href="#profile" id="profileLink"><i class="fas fa-user"></i> Profile</a>
-                            <a href="#payment-history" id="paymentHistoryLink"><i class="fas fa-receipt"></i> Payments</a>
-                            <a href="#my-courses" id="coursesLink"><i class="fas fa-book"></i> My Courses</a>
-                            <a href="#" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                        </div>
-                    </div>
-                    <div class="mobile-menu-btn" id="mobileMenuBtn">
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                    </div>
-                </div>
-            </nav>
+  <!-- Header -->
+  <header id="header">
+    <div class="container header-container">
+      <div class="logo">
+        <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 15C30 15, 15 30, 15 50C15 70, 30 85, 50 85C70 85, 85 70, 85 50C85 30, 70 15, 50 15Z" fill="#2563eb"/>
+          <path d="M35 40C35 40, 45 30, 50 30C55 30, 65 40, 65 40" stroke="white" stroke-width="3" fill="none"/>
+          <path d="M40 50C40 50, 45 45, 50 45C55 45, 60 50, 60 50" stroke="white" stroke-width="3" fill="none"/>
+          <path d="M35 60C35 60, 45 70, 50 70C55 70, 65 60, 65 60" stroke="white" stroke-width="3" fill="none"/>
+          <path d="M20 30L30 30M70 30L80 30M20 70L30 70M70 70L80 70" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <div class="logo-text">
+          <h1>Cerevex</h1>
         </div>
-    </header>
+      </div>
+      <nav>
+        <ul id="nav-menu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#order">Order Now</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="hamburger" id="hamburger">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Home Section -->
-        <section id="home" class="tech-hero">
-            <div class="tech-hero-overlay"></div>
-            <div class="container">
-                <div class="tech-hero-content">
-                    <h1 class="animate-fade-in">INNOVATE YOUR <span class="tech-text-gradient">DIGITAL PRESENCE</span></h1>
-                    <p class="animate-fade-in" data-delay="0.2s">Cutting-edge web & app development solutions tailored to your business needs</p>
-                    <div class="tech-hero-buttons animate-fade-in" data-delay="0.4s">
-                        <a href="#services" class="tech-btn-primary">
-                            <span>Our Services</span>
-                            <i class="fas fa-arrow-down"></i>
-                        </a>
-                        <a href="#contact" class="tech-btn-secondary">
-                            <span>Get Started</span>
-                            <i class="fas fa-rocket"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <h1>Transform Your Ideas Into Digital Reality</h1>
+      <p>Professional web and mobile app development services with transparent pricing and guaranteed delivery timelines.</p>
+      <a href="#order" class="btn">Get Started</a>
+    </div>
+  </section>
 
-        <!-- About Section -->
-        <section id="about" class="tech-about">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title"><span>//</span> ABOUT US</h2>
-                    <p class="section-subtitle">Driving digital transformation since 2025</p>
-                </div>
-                
-                <div class="tech-about-grid">
-                    <div class="tech-about-content">
-                        <h3>WE BUILD <span class="tech-text-gradient">DIGITAL FUTURES</span></h3>
-                        <p>Cerevex Development is a next-generation technology company specializing in creating innovative digital solutions that drive business growth. Our team combines technical expertise with creative thinking to deliver exceptional results.</p>
-                        
-                        <div class="tech-about-features">
-                            <div class="tech-feature-card">
-                                <div class="feature-icon">
-                                    <i class="fas fa-shield-halved"></i>
-                                </div>
-                                <h4>Secure Solutions</h4>
-                                <p>Enterprise-grade security for all our products and services.</p>
-                            </div>
-                            <div class="tech-feature-card">
-                                <div class="feature-icon">
-                                    <i class="fas fa-bolt"></i>
-                                </div>
-                                <h4>Fast Performance</h4>
-                                <p>Optimized solutions for maximum speed and efficiency.</p>
-                            </div>
-                            <div class="tech-feature-card">
-                                <div class="feature-icon">
-                                    <i class="fas fa-expand"></i>
-                                </div>
-                                <h4>Scalable Systems</h4>
-                                <p>Architected to grow with your business needs.</p>
-                            </div>
-                            <div class="tech-feature-card">
-                                <div class="feature-icon">
-                                    <i class="fas fa-chart-line"></i>
-                                </div>
-                                <h4>Data-Driven</h4>
-                                <p>Analytics and insights to inform your strategy.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tech-about-image">
-                        <img src="images/about-tech.jpg" alt="About Cerevex">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="services" class="tech-services">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title"><span>//</span> OUR SERVICES</h2>
-                    <p class="section-subtitle">Comprehensive digital solutions for your business</p>
-                </div>
-                
-                <div class="tech-services-grid">
-                    <!-- Web Development -->
-                    <div id="web-development" class="tech-service-card">
-                        <div class="service-card-inner">
-                            <div class="service-icon">
-                                <i class="fas fa-laptop-code"></i>
-                            </div>
-                            <h3>Web Development</h3>
-                            <p>Custom websites and web applications built with modern technologies.</p>
-                            <ul class="service-tech-stack">
-                                <li>HTML5</li>
-                                <li>CSS3</li>
-                                <li>JavaScript</li>
-                                <li>React</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- App Development -->
-                    <div id="app-development" class="tech-service-card">
-                        <div class="service-card-inner">
-                            <div class="service-icon">
-                                <i class="fas fa-mobile-screen-button"></i>
-                            </div>
-                            <h3>App Development</h3>
-                            <p>Cross-platform mobile applications for iOS and Android.</p>
-                            <ul class="service-tech-stack">
-                                <li>Flutter</li>
-                                <li>React Native</li>
-                                <li>Swift</li>
-                                <li>Kotlin</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- E-Commerce -->
-                    <div id="ecommerce" class="tech-service-card">
-                        <div class="service-card-inner">
-                            <div class="service-icon">
-                                <i class="fas fa-cart-shopping"></i>
-                            </div>
-                            <h3>E-Commerce</h3>
-                            <p>Complete online store solutions with payment integration.</p>
-                            <ul class="service-tech-stack">
-                                <li>Shopify</li>
-                                <li>WooCommerce</li>
-                                <li>Magento</li>
-                                <li>Node.js</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- Digital Marketing -->
-                    <div id="digital-marketing" class="tech-service-card">
-                        <div class="service-card-inner">
-                            <div class="service-icon">
-                                <i class="fas fa-bullhorn"></i>
-                            </div>
-                            <h3>Digital Marketing</h3>
-                            <p>Comprehensive digital marketing strategies to grow your business.</p>
-                            <ul class="service-tech-stack">
-                                <li>SEO</li>
-                                <li>PPC</li>
-                                <li>SMM</li>
-                                <li>Analytics</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- Cloud Solutions -->
-                    <div id="cloud-solutions" class="tech-service-card">
-                        <div class="service-card-inner">
-                            <div class="service-icon">
-                                <i class="fas fa-cloud"></i>
-                            </div>
-                            <h3>Cloud Solutions</h3>
-                            <p>Scalable cloud infrastructure and services.</p>
-                            <ul class="service-tech-stack">
-                                <li>AWS</li>
-                                <li>Azure</li>
-                                <li>Google Cloud</li>
-                                <li>Docker</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- IT Consulting -->
-                    <div id="it-consulting" class="tech-service-card">
-                        <div class="service-card-inner">
-                            <div class="service-icon">
-                                <i class="fas fa-headset"></i>
-                            </div>
-                            <h3>IT Consulting</h3>
-                            <p>Expert guidance to align technology with business goals.</p>
-                            <ul class="service-tech-stack">
-                                <li>Strategy</li>
-                                <li>Architecture</li>
-                                <li>Security</li>
-                                <li>Compliance</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Courses Section -->
-        <section id="courses" class="tech-courses">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title"><span>//</span> OUR COURSES</h2>
-                    <p class="section-subtitle">Master in-demand tech skills with our expert-led programs</p>
-                </div>
-                
-                <div class="tech-courses-tabs">
-                    <div class="tab-buttons">
-                        <button class="tab-btn active" data-tab="web-dev">Web Development</button>
-                        <button class="tab-btn" data-tab="app-dev">App Development</button>
-                        <button class="tab-btn" data-tab="data-science">Data Science</button>
-                    </div>
-                    
-                    <div class="tab-contents">
-                        <!-- Web Development Courses -->
-                        <div class="tab-content active" id="web-dev">
-                            <div class="course-card">
-                                <div class="course-header">
-                                    <h3>Full Stack Web Development</h3>
-                                    <div class="course-badge">BESTSELLER</div>
-                                </div>
-                                <div class="course-details">
-                                    <div class="course-info">
-                                        <span><i class="fas fa-clock"></i> 12 Weeks</span>
-                                        <span><i class="fas fa-signal"></i> Advanced</span>
-                                        <span><i class="fas fa-rupee-sign"></i> ₹25,000</span>
-                                    </div>
-                                    <p>Master MERN stack (MongoDB, Express, React, Node.js) and build professional web applications from scratch.</p>
-                                    <div class="course-tech">
-                                        <span>HTML5</span>
-                                        <span>CSS3</span>
-                                        <span>JavaScript</span>
-                                        <span>React</span>
-                                        <span>Node.js</span>
-                                    </div>
-                                </div>
-                                <div class="course-actions">
-                                    <a href="#" class="tech-btn-outline">Course Details</a>
-                                    <a href="#" class="tech-btn-primary">Enroll Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Other course tabs would go here -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team Section -->
-        <section id="team" class="tech-team">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title"><span>//</span> OUR TEAM</h2>
-                    <p class="section-subtitle">Meet the brilliant minds behind Cerevex</p>
-                </div>
-                
-                <div class="tech-team-grid">
-                    <div class="team-member-card">
-                        <div class="member-image">
-                            <img src="images/team/lakshya.jpg" alt="Lakshya Khare">
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <div class="member-info">
-                            <h3>Lakshya Khare</h3>
-                            <p class="position">Founder & CTO</p>
-                            <p class="bio">Technology visionary with expertise in full-stack development and system architecture.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="team-member-card">
-                        <div class="member-image">
-                            <img src="images/team/vaibhanu.jpg" alt="Vaibhanu Dev Shrivastava">
-                            <div class="member-social">
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                            </div>
-                        </div>
-                        <div class="member-info">
-                            <h3>Vaibhanu Dev Shrivastava</h3>
-                            <p class="position">CEO</p>
-                            <p class="bio">Business strategist with a passion for scaling tech startups and digital transformation.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="tech-contact">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title"><span>//</span> CONTACT US</h2>
-                    <p class="section-subtitle">Get in touch with our team</p>
-                </div>
-                
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h3>LET'S CONNECT</h3>
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="method-content">
-                                <h4>Our Location</h4>
-                                <p>Bangalore, India</p>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="method-content">
-                                <h4>Email Us</h4>
-                                <a href="mailto:cerevex69@gmail.com">cerevex69@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-phone-alt"></i>
-                            </div>
-                            <div class="method-content">
-                                <h4>Call Us</h4>
-                                <a href="tel:+919876543210">+91 9876543210</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-form">
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <label for="name">Your Name</label>
-                                <input type="text" id="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Your Message</label>
-                                <textarea id="message" required></textarea>
-                            </div>
-                            <button type="submit" class="tech-btn-primary">Send Message</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Profile Section (Hidden by default) -->
-        <section id="profile" class="tech-profile" style="display:none;">
-            <!-- Profile content from profile.html -->
-        </section>
-
-        <!-- Payment History Section (Hidden by default) -->
-        <section id="payment-history" class="tech-payment-history" style="display:none;">
-            <!-- Payment history content from payment-history.html -->
-        </section>
-
-        <!-- My Courses Section (Hidden by default) -->
-        <section id="my-courses" class="tech-my-courses" style="display:none;">
-            <!-- My courses content from my-courses.html -->
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="tech-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <a href="#home" class="footer-logo">
-                        <img src="images/logo.svg" alt="Cerevex">
-                        <span>CEREVEX</span>
-                    </a>
-                    <p>Empowering businesses through innovative technology solutions and digital transformation.</p>
-                    <div class="footer-social">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#courses">Courses</a></li>
-                        <li><a href="#team">Team</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-services">
-                    <h3>Services</h3>
-                    <ul>
-                        <li><a href="#web-development">Web Development</a></li>
-                        <li><a href="#app-development">App Development</a></li>
-                        <li><a href="#ecommerce">E-Commerce</a></li>
-                        <li><a href="#digital-marketing">Digital Marketing</a></li>
-                        <li><a href="#cloud-solutions">Cloud Solutions</a></li>
-                        <li><a href="#it-consulting">IT Consulting</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-newsletter">
-                    <h3>Newsletter</h3>
-                    <p>Subscribe to our newsletter for the latest updates.</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Your Email" required>
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Cerevex Development. All Rights Reserved.</p>
-                <div class="footer-legal">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-            </div>
+  <!-- Services Section -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Services</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>Web Development</h3>
+          <p>Custom websites built with React, Node.js, and modern frameworks tailored to your business needs.</p>
         </div>
-    </footer>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>App Development</h3>
+          <p>Native iOS/Android and cross-platform apps developed with Flutter or React Native.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <h3>UI/UX Design</h3>
+          <p>Beautiful, intuitive interfaces designed to enhance user experience and engagement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="js/script.js"></script>
-    <script src="js/particles.js"></script>
+  <!-- Order Form Section -->
+  <section class="order-form" id="order">
+    <div class="container">
+      <div class="section-title">
+        <h2>Start Your Project</h2>
+      </div>
+      <div class="form-container">
+        <!-- Step 1: Choose Service -->
+        <div class="form-step active" id="step-1">
+          <h3>Select Your Service</h3>
+          <div class="plans">
+            <div class="plan" data-service="web" data-price="19999">
+              <h3>Website Development</h3>
+              <p>Perfect for businesses needing an online presence</p>
+              <div class="price">$236</div>
+            </div>
+            <div class="plan" data-service="app" data-price="49999">
+              <h3>Mobile App Development</h3>
+              <p>Build native or cross-platform mobile applications</p>
+              <div class="price">$591</div>
+            </div>
+            <div class="plan" data-service="custom" data-price="99999">
+              <h3>Custom Solution</h3>
+              <p>Tailored software for your specific needs</p>
+              <div class="price">$1183+</div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-outline" disabled>Previous</button>
+            <button class="btn" onclick="nextStep(1, 2)">Next</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Project Details -->
+        <div class="form-step" id="step-2">
+          <h3>Project Details</h3>
+          <div class="form-group">
+            <label for="project-name">Project Name</label>
+            <input type="text" id="project-name" required placeholder="e.g., E-commerce Website">
+          </div>
+          <div class="form-group">
+            <label for="project-desc">Project Description</label>
+            <textarea id="project-desc" required placeholder="Describe your project requirements in detail"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="timeline">Preferred Timeline</label>
+            <select id="timeline" required>
+              <option value="">Select timeline</option>
+              <option value="1">1 Month</option>
+              <option value="2">2 Months</option>
+              <option value="3">3 Months</option>
+              <option value="custom">Custom Timeline</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-outline" onclick="prevStep(2, 1)">Previous</button>
+            <button class="btn" onclick="nextStep(2, 3)">Next</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Contact Info -->
+        <div class="form-step" id="step-3">
+          <h3>Your Information</h3>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" required placeholder="+91 9876543210">
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-outline" onclick="prevStep(3, 2)">Previous</button>
+            <button class="btn" onclick="nextStep(3, 4)">Next</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Review & Pay -->
+        <div class="form-step" id="step-4">
+          <h3>Review Your Order</h3>
+          <div id="order-summary">
+            <!-- Filled by JavaScript -->
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-outline" onclick="prevStep(4, 3)">Previous</button>
+            <button class="btn" id="pay-now-btn">Pay Now</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Confirmation -->
+        <div class="form-step" id="step-5">
+          <div class="confirmation">
+            <i class="fas fa-check-circle"></i>
+            <h3>Order Confirmed!</h3>
+            <p>Thank you for your order. We've sent a confirmation to your email.</p>
+            <p>Your Order ID: <strong id="order-id"></strong></p>
+            <button class="btn" onclick="resetForm()">Start New Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact Us</h2>
+      </div>
+      <div class="contact-info">
+        <p><i class="fas fa-envelope"></i> contact  cerevex69@gmail.com</p>
+        <p><i class="fas fa-map-marker-alt"></i> 123 Tech Park, Bangalore, India</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#order">Order</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+      <p>&copy; 2025 Cerevex. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('nav ul li a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
+    });
+
+    // Form Navigation
+    function nextStep(current, next) {
+      document.getElementById(`step-${current}`).classList.remove('active');
+      document.getElementById(`step-${next}`).classList.add('active');
+      
+      if (next === 4) {
+        updateOrderSummary();
+      }
+    }
+
+    function prevStep(current, prev) {
+      document.getElementById(`step-${current}`).classList.remove('active');
+      document.getElementById(`step-${prev}`).classList.add('active');
+    }
+
+    // Plan Selection
+    const plans = document.querySelectorAll('.plan');
+    let selectedService = null;
+    let selectedPrice = null;
+
+    plans.forEach(plan => {
+      plan.addEventListener('click', function() {
+        plans.forEach(p => p.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedService = this.getAttribute('data-service');
+        selectedPrice = this.getAttribute('data-price');
+      });
+    });
+
+    // Update Order Summary
+    function updateOrderSummary() {
+      const summary = document.getElementById('order-summary');
+      const projectName = document.getElementById('project-name').value;
+      const projectDesc = document.getElementById('project-desc').value;
+      const timeline = document.getElementById('timeline').value;
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      
+      let serviceName = '';
+      if (selectedService === 'web') serviceName = 'Website Development';
+      else if (selectedService === 'app') serviceName = 'Mobile App Development';
+      else serviceName = 'Custom Solution';
+
+      let timelineText = '';
+      switch(timeline) {
+        case '1': timelineText = '1 Month'; break;
+        case '2': timelineText = '2 Months'; break;
+        case '3': timelineText = '3 Months'; break;
+        default: timelineText = 'Custom Timeline';
+      }
+
+      summary.innerHTML = `
+        <div style="margin-bottom: 1rem;">
+          <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Order Summary</h4>
+          <p><strong>Service:</strong> ${serviceName}</p>
+          <p><strong>Project Name:</strong> ${projectName}</p>
+          <p><strong>Timeline:</strong> ${timelineText}</p>
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Client Details</h4>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+        </div>
+        <hr style="margin: 1rem 0; border-color: var(--light-gray);">
+        <h4 style="display: flex; justify-content: space-between; font-size: 1.25rem;">
+          <span>Total Amount:</span>
+          <span>₹${Number(selectedPrice).toLocaleString('en-IN')}</span>
+        </h4>
+      `;
+    }
+
+    // Payment Integration (Razorpay)
+    document.getElementById('pay-now-btn').addEventListener('click', function() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const projectName = document.getElementById('project-name').value;
+      
+      // Generate random order ID
+      const orderId = 'CX-' + Math.floor(100000 + Math.random() * 900000);
+      
+      // In production, call your backend to create an order
+      const options = {
+        key: 'rzp_test_YOUR_KEY_ID', // Replace with your Razorpay key
+        amount: selectedPrice * 100, // Amount in paise
+        currency: 'INR',
+        name: 'Cerevex Development',
+        description: projectName,
+        order_id: orderId,
+        handler: function(response) {
+          // On successful payment
+          document.getElementById('order-id').textContent = orderId;
+          nextStep(4, 5);
+          
+          // In production, send this data to your server
+          const orderData = {
+            orderId,
+            service: selectedService,
+            projectName,
+            clientName: name,
+            email,
+            phone,
+            amount: selectedPrice,
+            paymentId: response.razorpay_payment_id,
+            date: new Date().toISOString()
+          };
+          
+          console.log('Order successful:', orderData);
+          sendInvoice(email, orderData);
+        },
+        prefill: {
+          name: name,
+          email: email,
+          contact: phone
+        },
+        theme: {
+          color: '#2563eb'
+        }
+      };
+      
+      const rzp = new Razorpay(options);
+      rzp.open();
+    });
+
+    // Simulate sending invoice (in production, use backend)
+    function sendInvoice(email, orderData) {
+      console.log(`Invoice sent to ${email}`, orderData);
+      // In production: Call your backend API to send the email
+      alert(`Invoice sent to ${email}`);
+    }
+
+    // Reset form
+    function resetForm() {
+      document.querySelectorAll('.form-step').forEach(step => {
+        step.classList.remove('active');
+      });
+      document.getElementById('step-1').classList.add('active');
+      document.querySelectorAll('input, textarea, select').forEach(field => {
+        field.value = '';
+      });
+      plans.forEach(plan => plan.classList.remove('selected'));
+      selectedService = null;
+      selectedPrice = null;
+    }
+
+    // Sticky header on scroll
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 100) {
+        header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+      } else {
+        header.style.boxShadow = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
+      }
+    });
+  </script>
 </body>
 </html>
