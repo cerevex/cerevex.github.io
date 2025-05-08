@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 Coming Soon | Follow Us on Instagram </title>
+    <title>🚀 Coming Soon | Follow @cerevex69 on Instagram</title>
     <style>
-        /* Modern Glitch Effect + Gradient */
+        /* Modern Cyberpunk Style */
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
         
         body {
@@ -27,10 +27,10 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Glitch Text Effect */
+        /* Cyberpunk Glitch Effect */
         .glitch {
             font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
+            font-size: 4rem;
             font-weight: 700;
             text-transform: uppercase;
             position: relative;
@@ -58,7 +58,7 @@
             z-index: 10;
         }
 
-        /* Instagram Focus */
+        /* Instagram Focus Box */
         .instagram-box {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -94,6 +94,16 @@
             font-size: 1.5rem;
         }
 
+        /* QR Code Styling */
+        .qr-code {
+            margin: 20px auto;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            width: 150px;
+            display: block;
+        }
+
         /* Floating Dots Animation */
         .floating-dots {
             position: absolute;
@@ -118,6 +128,17 @@
             10% { opacity: 0.6; }
             100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
         }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 2.5rem;
+            }
+            
+            .instagram-box {
+                padding: 1.5rem;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -134,16 +155,18 @@
 
         <!-- Instagram Focus Box -->
         <div class="instagram-box">
-            <h2 style="margin-bottom: 1rem;">Join Our Instagram Community</h2>
-            <p>Get behind-the-scenes content, early access, and more!</p>
+            <h2 style="margin-bottom: 1rem;">Follow @cerevex69</h2>
+            <p>For behind-the-scenes content and launch updates!</p>
+            
+            <!-- Instagram Button -->
             <a href="https://instagram.com/cerevex69" class="instagram-btn" target="_blank">
-                <i class="fab fa-instagram"></i> Follow @ cerevex69
+                <i class="fab fa-instagram"></i> Follow on Instagram
             </a>
-        </div>
-
-        <!-- Simple Countdown (Optional) -->
-        <div style="margin-top: 2rem; font-size: 1.1rem;">
-            <p>Launching in <span id="countdown">60 days</span></p>
+            
+            <!-- QR Code to Instagram Profile -->
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://instagram.com/cerevex69" 
+                 alt="Scan to follow cerevex69 on Instagram" 
+                 class="qr-code">
         </div>
     </div>
 
@@ -163,9 +186,13 @@
         }
 
         // Simple Countdown (30 days from now)
-        const countdownEl = document.getElementById('countdown');
+        const countdownEl = document.createElement('div');
+        countdownEl.style.marginTop = '2rem';
+        countdownEl.style.fontSize = '1.1rem';
+        document.querySelector('.container').appendChild(countdownEl);
+        
         const launchDate = new Date();
-        launchDate.setDate(launchDate.getDate() + 60);
+        launchDate.setDate(launchDate.getDate() + 30);
         
         function updateCountdown() {
             const now = new Date();
@@ -174,7 +201,7 @@
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             
-            countdownEl.textContent = `${days} days and ${hours} hours`;
+            countdownEl.innerHTML = `Launching in <strong>${days} days ${hours} hours</strong>`;
         }
         
         updateCountdown();
